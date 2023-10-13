@@ -1,0 +1,9 @@
+button.liked {
+  background-color: green;
+  color: white;
+}
+
+button.favorited {
+  background-color: blue;
+  color: white;
+}

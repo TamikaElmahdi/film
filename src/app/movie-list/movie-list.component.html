@@ -1,1 +1,41 @@
-<p>movie-list works!</p>
+<!-- movie-list.component.html -->
+<div>
+  <label for="searchQuery">Recherche de films :</label>
+  <input id="searchQuery" type="text" [(ngModel)]="searchQuery" />
+
+  <input type="number" [(ngModel)]="releaseYearFilter" placeholder="Année de sortie" (input)="applyFilters()" />
+<input [(ngModel)]="genreFilter" placeholder="Genre" (input)="applyFilters()" />
+
+  <button (click)="rechercher()">Rechercher</button>
+</div>
+
+<div *ngIf="movies.length > 0">
+  <h3>Résultats de la recherche :</h3>
+  <div *ngFor="let movie of movies">
+    <img [src]="'https://image.tmdb.org/t/p/w200' + movie.poster_path" alt="{{ movie.title }}">
+    <h3 [routerLink]="'movie/'+movie.id">{{ movie.title }}</h3>
+    <button (click)="voirDetails(movie.id)">Voir les détails</button>
+    <button (click)="toggleLike(movie)" [class.liked]="isLiked(movie.id)">Like</button>
+    <button (click)="toggleFavorite(movie)" [class.favorited]="isFavorited(movie.id)">Ajouter aux favoris</button>
+
+    <p>{{ movie.overview }}</p>
+  </div>
+</div>
+
+
+<h1>Film favories</h1>
+<div *ngFor="let movie of favoriteMovies">
+  <img [src]="'https://image.tmdb.org/t/p/w200' + movie.poster_path" alt="{{ movie.title }}">
+  <h3>{{ movie.title }}</h3>
+</div>
+
+<h1>Film populaire</h1>
+<div *ngFor="let movie of populaireMovies">
+  <img [src]="'https://image.tmdb.org/t/p/w200' + movie.poster_path" alt="{{ movie.title }}">
+  <h3>{{ movie.title }}</h3>
+  <button (click)="voirDetails(movie.id)">Voir les détails</button>
+  <button (click)="toggleLike(movie)" [class.liked]="isLiked(movie.id)">Like</button>
+  <button (click)="toggleFavorite(movie)" [class.favorited]="isFavorited(movie.id)">Ajouter aux favoris</button>
+  <p>{{ movie.overview }}</p>
+
+</div>
